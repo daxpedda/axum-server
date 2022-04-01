@@ -1,1 +1,0 @@
-window.ALL_CRATES = ["axum_server","configure_http","graceful_shutdown","hello_world","http_and_https","remote_address","rustls_reload","rustls_server","shutdown"];
