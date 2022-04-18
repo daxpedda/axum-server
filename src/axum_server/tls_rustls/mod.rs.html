@@ -559,6 +559,7 @@
 <span id="554">554</span>
 <span id="555">555</span>
 <span id="556">556</span>
+<span id="557">557</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Tls implementation using [`rustls`].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Example</span>
@@ -823,8 +824,8 @@
 
     <span class="kw">let</span> <span class="ident">cert</span> <span class="op">=</span> <span class="ident">rustls_pemfile::certs</span>(<span class="kw-2">&amp;mut</span> <span class="ident">cert</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">rustls_pemfile::read_one</span>(<span class="kw-2">&amp;mut</span> <span class="ident">key</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">Item::RSAKey</span>(<span class="ident">key</span>)) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">Item::PKCS8Key</span>(<span class="ident">key</span>)) =&gt; <span class="ident">key</span>,
-        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io_other</span>(<span class="string">&quot;private key not found&quot;</span>)),
+        <span class="prelude-val">Some</span>(<span class="ident">Item::RSAKey</span>(<span class="ident">key</span>)) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">Item::PKCS8Key</span>(<span class="ident">key</span>)) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">Item::ECKey</span>(<span class="ident">key</span>)) =&gt; <span class="ident">key</span>,
+        <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io_other</span>(<span class="string">&quot;private key format not supported&quot;</span>)),
     };
 
     <span class="ident">config_from_der</span>(<span class="ident">cert</span>, <span class="ident">key</span>)
@@ -880,6 +881,7 @@
         <span class="macro">assert_eq!</span>(<span class="ident">body</span>.<span class="ident">as_ref</span>(), <span class="string">b&quot;Hello, world!&quot;</span>);
     }
 
+    <span class="attribute">#[<span class="ident">ignore</span>]</span>
     <span class="attribute">#[<span class="ident">tokio::test</span>]</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">tls_timeout</span>() {
         <span class="kw">let</span> (<span class="ident">handle</span>, <span class="ident">_server_task</span>, <span class="ident">addr</span>) <span class="op">=</span> <span class="ident">start_server</span>().<span class="kw">await</span>;
@@ -1116,5 +1118,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="axum_server" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (c5cf08d37 2022-03-30)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="axum_server" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (e7575f967 2022-04-14)" ></div>
 </body></html>
